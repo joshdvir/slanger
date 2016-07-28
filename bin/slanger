@@ -70,6 +70,14 @@ OptionParser.new do |opts|
     options[:pid_file] = k
   end
 
+  opts.on '-l','--log', "Enable looging to Logstash" do |k|
+    options[:log] = k
+  end
+
+  opts.on '-u','--log-uri LOG_URI', "LogStashLogger URI" do |k|
+    options[:log_uri] = k
+  end
+
   opts.parse!
 
   if options[:config_file] and File.exists? options[:config_file]
@@ -83,6 +91,12 @@ OptionParser.new do |opts|
       puts opts
       exit
     end
+  end
+
+  if options[:log] && !options[:log_uri]
+    puts "--log_uri STRING is a required argument when you enable --log.\n"
+    puts opts
+    exit
   end
 
 end

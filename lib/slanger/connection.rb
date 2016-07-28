@@ -38,6 +38,7 @@ module Slanger
     private
 
     def format(channel_id, event_name, payload = {})
+      Slanger::Logger.info({ 'message' => 'send_payload', 'event_name' => event_name })
       body = { event: event_name, data: Oj.dump(payload, mode: :compat) }
       body[:channel] = channel_id if channel_id
       Oj.dump(body, mode: :compat)
