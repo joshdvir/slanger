@@ -24,7 +24,7 @@ module Slanger
     end
 
     def subscriber
-      Slanger::Logger.info({ 'message' => 'redis_publisher' })
+      Slanger::Logger.info({ 'message' => 'redis_subscriber' })
       @subscriber ||= new_connection.pubsub.tap do |c|
         c.on(:message) do |channel, message|
           message = Oj.load(message)
