@@ -19,12 +19,12 @@ module Slanger
     end
 
     def publisher
-      Slanger::Logger.info({ 'message' => 'redis_publisher' })
+      Slanger::Logger.info({ 'message' => 'redis_publisher' }) if Slanger::Config.log
       @publisher ||= new_connection
     end
 
     def subscriber
-      Slanger::Logger.info({ 'message' => 'redis_subscriber' })
+      Slanger::Logger.info({ 'message' => 'redis_subscriber' }) if Slanger::Config.log
       @subscriber ||= new_connection.pubsub.tap do |c|
         c.on(:message) do |channel, message|
           message = Oj.load(message)
